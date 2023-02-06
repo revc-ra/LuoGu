@@ -1,0 +1,7 @@
+a
+a
+EOF
+a<a
+bbbb<<<<<a
+EOF
+60
