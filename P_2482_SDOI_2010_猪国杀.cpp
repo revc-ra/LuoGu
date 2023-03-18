@@ -10,7 +10,7 @@ int deck_idx = 0;
 char deck[2000];
 
 bool game_over = false;
-bool use_kill  = false;
+bool use_strike = false;
 
 int fp_cnt = 0;
 
@@ -143,7 +143,7 @@ inline void lose_1hp(int attacker_idx, int defender_idx)
 
 inline void do_strike(int attacker_idx, int defender_idx)
 {
-    use_kill = true;
+    use_strike = true;
     expose_identity(attacker_idx);
 
     if (!can_play_the_card(defender_idx, 'D'))
@@ -317,7 +317,7 @@ inline bool can_play_a_card(int attacker_idx)
             discard(attacker_idx, i);
             attacker.equipped = true;
         }
-        else if (card == 'K' && (!use_kill || attacker.equipped) && is_enemy(attacker_idx, next_player(attacker_idx)))
+        else if (card == 'K' && (!use_strike || attacker.equipped) && is_enemy(attacker_idx, next_player(attacker_idx)))
         {
             discard(attacker_idx, i);
             do_strike(attacker_idx, next_player(attacker_idx));
@@ -395,7 +395,7 @@ int main()
     {
         draw_cards(cur_player, 2);
         while(can_play_a_card(cur_player));
-        use_kill = false;
+        use_strike = false;
         cur_player = next_player(cur_player);
     }
 
