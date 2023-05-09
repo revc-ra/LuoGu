@@ -37,11 +37,6 @@ int main()
         last = heights[right];
         right--;
 
-        if (left > right)
-        {
-            break;
-        }
-
         hp += (heights[left] - last) * (heights[left] - last);
         last = heights[left];
         left++;
