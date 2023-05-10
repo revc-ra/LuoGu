@@ -1,8 +1,8 @@
 // https://www.luogu.com.cn/problem/P1094
 
 #include <iostream>
+#include <cmath>
 #include <vector>
-#include <algorithm>
 
 using namespace std;
 
@@ -16,25 +16,31 @@ int main()
 
     cin >> limit >> n;
 
-    vector<int> prices(n);
-    for (auto &p : prices)
+    vector<int> prices(201);
+
+    for(int i = 0; i < n; i++)
     {
+        int p = 0;
         cin >> p;
+        prices[p]++;
     }
 
-    sort(prices.begin(), prices.end());
-
-    int left = 0;
-    int right = n - 1;
-    int count = n;
-    while(left < right)
+    int count = 0;
+    for (int i = 200; i >= 5; i--)
     {
-        if (prices[left] + prices[right] <= limit)
+        while(prices[i] > 0)
         {
-            count--;
-            left++;
+            prices[i]--;
+            for (int j = min(limit - i, limit / 2); j >= 5; j--)
+            {
+                if (prices[j] > 0)
+                {
+                    prices[j]--;
+                    break;
+                }
+            }
+            count++;
         }
-        right--;
     }
 
     cout << count;
